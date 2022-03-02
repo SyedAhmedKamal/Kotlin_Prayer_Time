@@ -28,8 +28,6 @@ class PrayersTimeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // TODO("Ready to code")
-        binding.imageView5.setBlur(20)
     }
 
     override fun onDestroy() {

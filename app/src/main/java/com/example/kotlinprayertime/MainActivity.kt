@@ -1,13 +1,11 @@
 package com.example.kotlinprayertime
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.animation.AnimationUtils
+import androidx.appcompat.app.AppCompatActivity
 import com.example.kotlinprayertime.databinding.ActivityMainBinding
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
@@ -18,6 +16,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        setSupportActionBar(binding.toolbarInside)
 
         CoroutineScope(Dispatchers.IO).launch {
             animation()
