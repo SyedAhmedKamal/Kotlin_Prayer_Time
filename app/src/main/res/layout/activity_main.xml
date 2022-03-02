@@ -6,17 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".fragments.PrayersTimeFragment">
 
-    <com.jgabrielfreitas.core.BlurImageView
-        android:id="@+id/imageView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="Wallpaper"
-        android:scaleType="centerCrop"
-        android:src="@drawable/blurbackground"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -29,49 +18,52 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_margin="16dp"
             android:background="?attr/colorPrimary"
+            android:elevation="4dp"
             android:minHeight="?attr/actionBarSize"
             android:theme="?attr/actionBarTheme"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_nav_bar"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="?attr/actionBarSize"
             android:background="@color/purple_700"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <ScrollView
+            android:layout_marginTop="8dp"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/bottom_nav_bar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar">
+            app:layout_constraintTop_toBottomOf="@+id/tv_location">
 
             <LinearLayout
-                android:background="@android:color/transparent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
+                android:background="@android:color/transparent"
                 android:gravity="center_horizontal"
                 android:orientation="vertical"
-                android:padding="8dp">
+                android:padding="16dp">
 
                 <androidx.cardview.widget.CardView
-                    android:layout_marginBottom="16dp"
                     android:id="@+id/card1"
                     android:layout_width="350dp"
                     android:layout_height="100dp"
+                    android:layout_marginBottom="16dp"
                     android:layout_weight="1"
                     android:backgroundTint="@android:color/darker_gray"
-                    app:cardCornerRadius="12dp">
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="0dp">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -104,7 +96,7 @@
                             app:layout_constraintTop_toTopOf="@+id/divider2" />
 
                         <TextView
-                            android:id="@+id/textView4"
+                            android:id="@+id/tv_fajar"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="00:00"
@@ -133,7 +125,8 @@
                     android:layout_marginBottom="16dp"
                     android:layout_weight="1"
                     android:backgroundTint="@android:color/darker_gray"
-                    app:cardCornerRadius="12dp">
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="0dp">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -197,7 +190,8 @@
                     android:layout_marginBottom="16dp"
                     android:layout_weight="1"
                     android:backgroundTint="@android:color/darker_gray"
-                    app:cardCornerRadius="12dp">
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="0dp">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -259,7 +253,8 @@
                     android:layout_marginBottom="16dp"
                     android:layout_weight="1"
                     android:backgroundTint="@android:color/darker_gray"
-                    app:cardCornerRadius="12dp">
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="0dp">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -321,7 +316,8 @@
                     android:layout_marginBottom="8dp"
                     android:layout_weight="1"
                     android:backgroundTint="@android:color/darker_gray"
-                    app:cardCornerRadius="12dp">
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="0dp">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -378,6 +374,32 @@
 
             </LinearLayout>
         </ScrollView>
+
+        <TextView
+            android:textStyle="bold"
+            android:textSize="30sp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            android:layout_marginTop="16dp"
+            android:id="@+id/tv_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Karachi"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_baseline_location_on_24"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_location"
+            app:layout_constraintEnd_toStartOf="@+id/tv_location"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_location" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

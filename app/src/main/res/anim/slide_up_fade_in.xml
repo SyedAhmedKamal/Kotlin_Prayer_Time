@@ -3,14 +3,14 @@
 
     <!--fade_in-->
     <alpha
-        android:duration="1000"
+        android:duration="900"
         android:fromAlpha="0.0"
-        android:interpolator="@android:anim/decelerate_interpolator"
+        android:interpolator="@android:anim/linear_interpolator"
         android:toAlpha="1.0" />
 
     <!--slide-up-->
     <translate
-        android:duration="900"
+        android:duration="700"
         android:fromYDelta="15%"
         android:interpolator="@android:anim/accelerate_interpolator"
         android:toYDelta="0%" />
