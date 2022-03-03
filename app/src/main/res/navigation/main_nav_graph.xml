@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav_graph"
+    app:startDestination="@id/prayersTimeFragment">
+
+    <fragment
+        android:id="@+id/prayersTimeFragment"
+        android:name="com.example.kotlinprayertime.fragments.PrayersTimeFragment"
+        android:label="Prayers Time"
+        tools:layout="@layout/fragment_prayers_time" >
+        <action
+            android:id="@+id/action_prayersTimeFragment_to_hijriCalendarFragment"
+            app:destination="@id/hijriCalendarFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/hijriCalendarFragment"
+        android:name="com.example.kotlinprayertime.fragments.HijriCalendarFragment"
+        android:label="Calendar"
+        tools:layout="@layout/fragment_hijri_calendar" />
+</navigation>

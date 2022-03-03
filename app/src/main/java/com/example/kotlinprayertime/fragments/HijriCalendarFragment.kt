@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
+import com.example.kotlinprayertime.R
 import com.example.kotlinprayertime.databinding.FragmentHijriCalendarBinding
 
 class HijriCalendarFragment : Fragment() {
@@ -27,7 +29,54 @@ class HijriCalendarFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //TODO("Ready to code")
+        animation()
+        alphaValueOFCardView()
+    }
+
+    private fun alphaValueOFCardView() {
+        binding.apply {
+
+            cardGregorian.background.alpha = (0.4 * 255).toInt()
+            cardHijri.background.alpha = (0.4 * 255).toInt()
+
+        }
+    }
+
+    private fun animation() {
+
+        binding.apply {
+
+            divider.startAnimation(AnimationUtils.loadAnimation(requireContext(), R.anim.move_in))
+            divider7.startAnimation(AnimationUtils.loadAnimation(requireContext(), R.anim.move_in))
+
+            tvCalendarGregorian.startAnimation(
+                AnimationUtils.loadAnimation(
+                    requireContext(),
+                    R.anim.slide_up_fade_in
+                )
+            )
+
+            tvCalendarHijri.startAnimation(
+                AnimationUtils.loadAnimation(
+                    requireContext(),
+                    R.anim.slide_up_fade_in
+                )
+            )
+
+            cardGregorian.startAnimation(
+                AnimationUtils.loadAnimation(
+                    requireContext(),
+                    R.anim.slide_up_fade_in
+                )
+            )
+
+            cardHijri.startAnimation(
+                AnimationUtils.loadAnimation(
+                    requireContext(),
+                    R.anim.slide_up_fade_in
+                )
+            )
+        }
     }
 
     override fun onDestroy() {
