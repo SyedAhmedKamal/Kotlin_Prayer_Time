@@ -135,6 +135,7 @@ class PrayersTimeFragment : Fragment() {
 
     }
 
+
     private fun reverseGeocoding(latitude: Double, longitude: Double) {
 
         val geocoder = Geocoder(activity, Locale.getDefault())
