@@ -1,4 +1,4 @@
-package com.example.kotlinprayertime.datamodel
+package com.example.kotlinprayertime.datamodel.timing
 
 data class TimingModel(
     val Asr: String,
