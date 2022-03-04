@@ -8,8 +8,10 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.kotlinprayertime.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 import javax.security.auth.callback.Callback
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding

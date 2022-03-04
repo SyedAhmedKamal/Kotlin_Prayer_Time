@@ -8,7 +8,9 @@ import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import com.example.kotlinprayertime.R
 import com.example.kotlinprayertime.databinding.FragmentHijriCalendarBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HijriCalendarFragment : Fragment() {
 
     private var _binding: FragmentHijriCalendarBinding? = null
