@@ -9,14 +9,19 @@
         android:id="@+id/prayersTimeFragment"
         android:name="com.example.kotlinprayertime.fragments.PrayersTimeFragment"
         android:label="Prayers Time"
-        tools:layout="@layout/fragment_prayers_time" >
+        tools:layout="@layout/fragment_prayers_time">
         <action
             android:id="@+id/action_prayersTimeFragment_to_hijriCalendarFragment"
-            app:destination="@id/hijriCalendarFragment" />
+            app:destination="@id/hijriCalendarFragment"
+            app:enterAnim="@anim/slide_out"
+            app:exitAnim="@anim/slide_out"
+            app:popEnterAnim="@anim/slide_out"
+            app:popExitAnim="@anim/slide_out" />
     </fragment>
     <fragment
         android:id="@+id/hijriCalendarFragment"
         android:name="com.example.kotlinprayertime.fragments.HijriCalendarFragment"
         android:label="Calendar"
-        tools:layout="@layout/fragment_hijri_calendar" />
+        tools:layout="@layout/fragment_hijri_calendar">
+    </fragment>
 </navigation>

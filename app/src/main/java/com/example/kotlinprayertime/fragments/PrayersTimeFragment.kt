@@ -1,8 +1,12 @@
 package com.example.kotlinprayertime.fragments
 
 import android.Manifest.permission.*
+import android.app.AlarmManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Context.ALARM_SERVICE
 import android.content.Context.LOCATION_SERVICE
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Address
 import android.location.Geocoder
@@ -20,10 +24,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.kotlinprayertime.R
 import com.example.kotlinprayertime.databinding.FragmentPrayersTimeBinding
+import com.example.kotlinprayertime.utils.AlarmReceiver
 import com.example.kotlinprayertime.utils.NetworkStatus
 import com.example.kotlinprayertime.utils.Status
 import com.example.kotlinprayertime.viewmodel.MainViewModel
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.timepicker.MaterialTimePicker
+import com.google.android.material.timepicker.TimeFormat
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.IOException
 import java.util.*
@@ -35,6 +42,10 @@ class PrayersTimeFragment : Fragment() {
     private val binding get() = _binding!!
     private val mainViewModel: MainViewModel by viewModels()
     private val PERMISSION_REQUEST_CODE = 100
+    private lateinit var calendar: Calendar
+    private lateinit var alarmManager: AlarmManager
+    private lateinit var pendingIntent: PendingIntent
+    private lateinit var picker: MaterialTimePicker
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -91,6 +102,8 @@ class PrayersTimeFragment : Fragment() {
 
                             reanimatetv()
 
+                            fajarTiming(it.data.timings.Fajr)
+
                             tvFajar.text = it.data.timings.Fajr
                             tvDuhur.text = it.data.timings.Dhuhr
                             tvAsar.text = it.data.timings.Asr
@@ -112,6 +125,36 @@ class PrayersTimeFragment : Fragment() {
             }
 
         }
+
+    }
+
+    private fun fajarTiming(fajr: String) {
+
+        val hour = fajr.substring(0, 2).toInt()
+        val minute = fajr.substring(3, 5).toInt()
+
+        calendar = Calendar.getInstance()
+        calendar.timeInMillis = System.currentTimeMillis()
+        calendar[Calendar.HOUR_OF_DAY] = 22
+        calendar[Calendar.MINUTE] = 4
+        calendar[Calendar.SECOND] = 0
+        calendar[Calendar.MILLISECOND] = 0
+
+        alarmManager = activity?.getSystemService(ALARM_SERVICE) as AlarmManager
+        val intent = Intent(this.context, AlarmReceiver::class.java)
+        pendingIntent = PendingIntent.getBroadcast(
+            this.context,
+            100,
+            intent,
+            0
+        )
+
+        alarmManager.set(
+            AlarmManager.RTC_WAKEUP,
+            calendar.timeInMillis,
+            pendingIntent
+        )
+
 
     }
 
