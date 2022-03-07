@@ -4,9 +4,9 @@ import android.Manifest.permission.*
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
-import android.content.Context.ALARM_SERVICE
-import android.content.Context.LOCATION_SERVICE
+import android.content.Context.*
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.location.Address
 import android.location.Geocoder
@@ -34,6 +34,7 @@ import com.google.android.material.timepicker.TimeFormat
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.IOException
 import java.util.*
+import kotlin.math.min
 
 @AndroidEntryPoint
 class PrayersTimeFragment : Fragment() {
@@ -45,7 +46,9 @@ class PrayersTimeFragment : Fragment() {
     private lateinit var calendar: Calendar
     private lateinit var alarmManager: AlarmManager
     private lateinit var pendingIntent: PendingIntent
-    private lateinit var picker: MaterialTimePicker
+    val SHARED_KEY = "com.example.kotlinprayertime.TIMING_KEY"
+    private lateinit var sharedPref: SharedPreferences
+    private val TAG = "PrayersTimeFragment"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -130,32 +133,55 @@ class PrayersTimeFragment : Fragment() {
 
     private fun fajarTiming(fajr: String) {
 
+        //TODO("Apply this logic to remaining four timings")
+
         val hour = fajr.substring(0, 2).toInt()
         val minute = fajr.substring(3, 5).toInt()
 
-        calendar = Calendar.getInstance()
-        calendar.timeInMillis = System.currentTimeMillis()
-        calendar[Calendar.HOUR_OF_DAY] = 22
-        calendar[Calendar.MINUTE] = 4
-        calendar[Calendar.SECOND] = 0
-        calendar[Calendar.MILLISECOND] = 0
+        sharedPref = activity?.getSharedPreferences(SHARED_KEY, MODE_PRIVATE)!!
+        val sharedFajarHour = sharedPref.getInt("Fajar hour", 0)
+        val sharedFajarMinute = sharedPref.getInt("Fajar minute", 0)
 
-        alarmManager = activity?.getSystemService(ALARM_SERVICE) as AlarmManager
-        val intent = Intent(this.context, AlarmReceiver::class.java)
-        pendingIntent = PendingIntent.getBroadcast(
-            this.context,
-            100,
-            intent,
-            0
-        )
+        Log.d(TAG, "SharedFajarTiming: ${sharedFajarHour}-${sharedFajarMinute}")
+        Log.d(TAG, "DefaultFajarTiming: ${hour}-${minute}")
 
-        alarmManager.set(
-            AlarmManager.RTC_WAKEUP,
-            calendar.timeInMillis,
-            pendingIntent
-        )
+        if (fajr != null) {
+            if (hour != sharedFajarHour && minute != sharedFajarMinute) {
 
+                sharedPref = activity?.getSharedPreferences(SHARED_KEY, MODE_PRIVATE) ?: return
+                with(sharedPref.edit()) {
+                    putInt("Fajar hour", hour)
+                    putInt("Fajar minute", minute)
+                    apply()
+                }
 
+                Log.d(TAG, "fajarTiming: alarm is set")
+
+                calendar = Calendar.getInstance()
+                calendar.timeInMillis = System.currentTimeMillis()
+                calendar[Calendar.HOUR_OF_DAY] = sharedFajarHour
+                calendar[Calendar.MINUTE] = sharedFajarMinute
+                calendar[Calendar.SECOND] = 0
+                calendar[Calendar.MILLISECOND] = 0
+
+                alarmManager = activity?.getSystemService(ALARM_SERVICE) as AlarmManager
+                val intent = Intent(this.context, AlarmReceiver::class.java)
+                pendingIntent = PendingIntent.getBroadcast(
+                    this.context,
+                    100,
+                    intent,
+                    0
+                )
+
+                alarmManager.setInexactRepeating(
+                    AlarmManager.RTC_WAKEUP,
+                    calendar.timeInMillis,
+                    AlarmManager.INTERVAL_DAY,
+                    pendingIntent
+                )
+
+            }
+        }
     }
 
     private fun checkLocationPermission() {
