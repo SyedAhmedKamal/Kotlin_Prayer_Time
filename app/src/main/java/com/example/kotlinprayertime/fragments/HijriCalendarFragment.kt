@@ -226,7 +226,7 @@ class HijriCalendarFragment : Fragment() {
         binding.apply {
 
             cardGregorian.background.alpha = (0.4 * 255).toInt()
-            cardHijri.background.alpha = (0.4 * 255).toInt()
+            cardHijri.background.alpha = (0.2 * 255).toInt()
 
         }
     }

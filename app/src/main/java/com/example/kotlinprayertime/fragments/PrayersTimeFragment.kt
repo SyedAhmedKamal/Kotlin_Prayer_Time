@@ -282,11 +282,11 @@ class PrayersTimeFragment : Fragment() {
 
         binding.apply {
 
-            card1.background.alpha = (0.4 * 255).toInt()
-            card2.background.alpha = (0.4 * 255).toInt()
-            card3.background.alpha = (0.4 * 255).toInt()
+            card1.background.alpha = (1.0 * 255).toInt()
+            card2.background.alpha = (0.8 * 255).toInt()
+            card3.background.alpha = (0.6 * 255).toInt()
             card4.background.alpha = (0.4 * 255).toInt()
-            card5.background.alpha = (0.4 * 255).toInt()
+            card5.background.alpha = (0.2 * 255).toInt()
 
         }
     }

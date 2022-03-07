@@ -20,6 +20,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.Toolbar
+            app:titleTextColor="@color/offWhite"
             android:id="@+id/toolbar_inside"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"

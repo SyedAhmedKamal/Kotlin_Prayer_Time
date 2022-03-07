@@ -7,5 +7,10 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="selectedMenuItem">#B95C6667</color>
+    <color name="offWhite">#FFFBD7</color>
+    <color name="selectedMenuItem">#DD5C6667</color>
+
+    <color name="background">#0B0B0C</color>
+    <color name="cardView">#48484A</color>
+    <color name="cards">#0C0CAF</color>
 </resources>
