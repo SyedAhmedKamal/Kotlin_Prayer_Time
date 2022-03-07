@@ -30,7 +30,7 @@ class AlarmReceiver : BroadcastReceiver() {
         )
 
         val notificationBuilder = NotificationCompat.Builder(context!!, CHANNEL_ID)
-            .setSmallIcon(R.drawable.ic_baseline_location_on_24)
+            .setSmallIcon(R.drawable.notification_icon)
             .setContentTitle("My Prayer")
             .setContentInfo("Prayer time")
             .setAutoCancel(true)
