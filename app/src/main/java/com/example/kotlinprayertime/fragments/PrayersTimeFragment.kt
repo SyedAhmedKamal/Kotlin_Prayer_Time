@@ -3,7 +3,6 @@ package com.example.kotlinprayertime.fragments
 import android.Manifest.permission.*
 import android.app.AlarmManager
 import android.app.PendingIntent
-import android.content.Context
 import android.content.Context.*
 import android.content.Intent
 import android.content.SharedPreferences
@@ -19,7 +18,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.kotlinprayertime.R
@@ -29,12 +27,11 @@ import com.example.kotlinprayertime.utils.NetworkStatus
 import com.example.kotlinprayertime.utils.Status
 import com.example.kotlinprayertime.viewmodel.MainViewModel
 import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.timepicker.MaterialTimePicker
-import com.google.android.material.timepicker.TimeFormat
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.IOException
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 import java.util.*
-import kotlin.math.min
 
 @AndroidEntryPoint
 class PrayersTimeFragment : Fragment() {
@@ -105,13 +102,24 @@ class PrayersTimeFragment : Fragment() {
 
                             reanimatetv()
 
-                            fajarTiming(it.data.timings.Fajr)
+                            val result: String =
+                                LocalTime.parse(it.data.timings.Fajr, DateTimeFormatter.ofPattern("HH:mm"))
+                                    .format(DateTimeFormatter.ofPattern("hh:mm a"))
 
-                            tvFajar.text = it.data.timings.Fajr
-                            tvDuhur.text = it.data.timings.Dhuhr
-                            tvAsar.text = it.data.timings.Asr
-                            tvMaghrib.text = it.data.timings.Maghrib
-                            tvIsha.text = it.data.timings.Isha
+                            Log.d(TAG, "displayData: ${result}")
+
+                            fajarTiming(result)
+
+                            tvFajar.text = LocalTime.parse(it.data.timings.Fajr, DateTimeFormatter.ofPattern("HH:mm"))
+                                .format(DateTimeFormatter.ofPattern("hh:mm a"))
+                            tvDuhur.text = LocalTime.parse(it.data.timings.Dhuhr, DateTimeFormatter.ofPattern("HH:mm"))
+                                .format(DateTimeFormatter.ofPattern("hh:mm a"))
+                            tvAsar.text = LocalTime.parse(it.data.timings.Asr, DateTimeFormatter.ofPattern("HH:mm"))
+                                .format(DateTimeFormatter.ofPattern("hh:mm a"))
+                            tvMaghrib.text = LocalTime.parse(it.data.timings.Maghrib, DateTimeFormatter.ofPattern("HH:mm"))
+                                .format(DateTimeFormatter.ofPattern("hh:mm a"))
+                            tvIsha.text = LocalTime.parse(it.data.timings.Isha, DateTimeFormatter.ofPattern("HH:mm"))
+                                .format(DateTimeFormatter.ofPattern("hh:mm a"))
                             tvLocation.text = mainViewModel._city.value
 
                         }
@@ -132,8 +140,6 @@ class PrayersTimeFragment : Fragment() {
     }
 
     private fun fajarTiming(fajr: String) {
-
-        //TODO("Apply this logic to remaining four timings")
 
         val hour = fajr.substring(0, 2).toInt()
         val minute = fajr.substring(3, 5).toInt()
@@ -227,7 +233,6 @@ class PrayersTimeFragment : Fragment() {
         } catch (e: IOException) {
             Log.d("geocode", "reverseGeocoding: " + e.message)
         }
-
     }
 
     private fun reanimatetv() {
