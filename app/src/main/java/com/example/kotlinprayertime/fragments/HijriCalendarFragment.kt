@@ -110,6 +110,8 @@ class HijriCalendarFragment : Fragment() {
                         }
                     }
                 }
+
+                else -> {}
             }
         }
     }
@@ -199,11 +201,11 @@ class HijriCalendarFragment : Fragment() {
 
     private fun reverseGeocoding(latitude: Double, longitude: Double) {
 
-        val geocoder = Geocoder(activity, Locale.getDefault())
+        val geocoder = Geocoder(requireActivity(), Locale.getDefault())
         val addresses: List<Address>
 
         try {
-            addresses = geocoder.getFromLocation(latitude, longitude, 10)
+            addresses = geocoder.getFromLocation(latitude, longitude, 10)!!
 
             if (addresses.size > 0) {
                 for (adr in addresses) {

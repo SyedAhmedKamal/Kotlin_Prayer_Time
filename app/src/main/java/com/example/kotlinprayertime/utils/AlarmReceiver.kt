@@ -1,17 +1,15 @@
 package com.example.kotlinprayertime.utils
 
 import android.app.PendingIntent
-import android.app.PendingIntent.FLAG_UPDATE_CURRENT
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.example.kotlinprayertime.MainActivity
 import com.example.kotlinprayertime.R
-import com.example.kotlinprayertime.di.CHANNEL_ID
+import com.example.kotlinprayertime.CHANNEL_ID
 import com.example.kotlinprayertime.utils.Constants.NOTIFICATION_ID
 
 

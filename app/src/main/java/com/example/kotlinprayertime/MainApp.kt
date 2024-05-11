@@ -1,4 +1,4 @@
-package com.example.kotlinprayertime.di
+package com.example.kotlinprayertime
 
 import android.app.Application
 import android.app.NotificationChannel

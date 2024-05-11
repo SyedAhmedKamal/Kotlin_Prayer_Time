@@ -98,10 +98,35 @@ class PrayersTimeFragment : Fragment() {
 
                 Status.SUCCESS -> {
                     it.data?.let {
-                        Log.d("timingFragment", "displayData: " + it.data.timings.Fajr)
+                        Log.d("timingFragment", "displayData: " + it.data.timings)
                         binding.apply {
                             reanimatetv()
-                            updateUI(it)
+                            //updateUI(it)
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                val result: String =
+                                    LocalTime.parse(it.data.timings.Dhuhr, DateTimeFormatter.ofPattern("HH:mm"))
+                                        .format(DateTimeFormatter.ofPattern("hh:mm a"))
+
+                                Log.d(TAG, "displayData: ${result}")
+
+                                fajarTiming(result)
+
+                                tvFajar.text =
+                                    LocalTime.parse(it.data.timings.Fajr, DateTimeFormatter.ofPattern("HH:mm"))
+                                        .format(DateTimeFormatter.ofPattern("hh:mm a"))
+                                tvDuhur.text =
+                                    LocalTime.parse(it.data.timings.Dhuhr, DateTimeFormatter.ofPattern("HH:mm"))
+                                        .format(DateTimeFormatter.ofPattern("hh:mm a"))
+                                tvAsar.text = LocalTime.parse(it.data.timings.Asr, DateTimeFormatter.ofPattern("HH:mm"))
+                                    .format(DateTimeFormatter.ofPattern("hh:mm a"))
+                                tvMaghrib.text =
+                                    LocalTime.parse(it.data.timings.Maghrib, DateTimeFormatter.ofPattern("HH:mm"))
+                                        .format(DateTimeFormatter.ofPattern("hh:mm a"))
+                                tvIsha.text =
+                                    LocalTime.parse(it.data.timings.Isha, DateTimeFormatter.ofPattern("HH:mm"))
+                                        .format(DateTimeFormatter.ofPattern("hh:mm a"))
+                                tvLocation.text = mainViewModel._city.value
+                            }
                         }
                     }
                 }
@@ -119,31 +144,7 @@ class PrayersTimeFragment : Fragment() {
     }
 
     private fun FragmentPrayersTimeBinding.updateUI(it: MainContainer) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val result: String =
-                LocalTime.parse(it.data.timings.Dhuhr, DateTimeFormatter.ofPattern("HH:mm"))
-                    .format(DateTimeFormatter.ofPattern("hh:mm a"))
 
-            Log.d(TAG, "displayData: ${result}")
-
-            fajarTiming(result)
-
-            tvFajar.text =
-                LocalTime.parse(it.data.timings.Fajr, DateTimeFormatter.ofPattern("HH:mm"))
-                    .format(DateTimeFormatter.ofPattern("hh:mm a"))
-            tvDuhur.text =
-                LocalTime.parse(it.data.timings.Dhuhr, DateTimeFormatter.ofPattern("HH:mm"))
-                    .format(DateTimeFormatter.ofPattern("hh:mm a"))
-            tvAsar.text = LocalTime.parse(it.data.timings.Asr, DateTimeFormatter.ofPattern("HH:mm"))
-                .format(DateTimeFormatter.ofPattern("hh:mm a"))
-            tvMaghrib.text =
-                LocalTime.parse(it.data.timings.Maghrib, DateTimeFormatter.ofPattern("HH:mm"))
-                    .format(DateTimeFormatter.ofPattern("hh:mm a"))
-            tvIsha.text =
-                LocalTime.parse(it.data.timings.Isha, DateTimeFormatter.ofPattern("HH:mm"))
-                    .format(DateTimeFormatter.ofPattern("hh:mm a"))
-            tvLocation.text = mainViewModel._city.value
-        }
     }
 
     @SuppressLint("ScheduleExactAlarm")
@@ -233,11 +234,11 @@ class PrayersTimeFragment : Fragment() {
 
     private fun reverseGeocoding(latitude: Double, longitude: Double) {
 
-        val geocoder = Geocoder(activity, Locale.getDefault())
+        val geocoder = Geocoder(requireActivity(), Locale.getDefault())
         val addresses: List<Address>
 
         try {
-            addresses = geocoder.getFromLocation(latitude, longitude, 10)
+            addresses = geocoder.getFromLocation(latitude, longitude, 10)!!
 
             if (addresses.size > 0) {
                 for (adr in addresses) {
