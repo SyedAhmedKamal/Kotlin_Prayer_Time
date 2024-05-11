@@ -12,6 +12,7 @@ import androidx.core.app.NotificationManagerCompat
 import com.example.kotlinprayertime.MainActivity
 import com.example.kotlinprayertime.R
 import com.example.kotlinprayertime.di.CHANNEL_ID
+import com.example.kotlinprayertime.utils.Constants.NOTIFICATION_ID
 
 
 class AlarmReceiver : BroadcastReceiver() {
@@ -39,6 +40,6 @@ class AlarmReceiver : BroadcastReceiver() {
             .setContentIntent(pendingIntent)
 
         val notificationCompat = NotificationManagerCompat.from(context)
-        notificationCompat.notify(123, notificationBuilder.build())
+        notificationCompat.notify(NOTIFICATION_ID, notificationBuilder.build())
     }
 }

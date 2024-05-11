@@ -22,6 +22,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.kotlinprayertime.R
 import com.example.kotlinprayertime.databinding.FragmentPrayersTimeBinding
+import com.example.kotlinprayertime.datamodel.MainContainer
 import com.example.kotlinprayertime.utils.AlarmReceiver
 import com.example.kotlinprayertime.utils.NetworkStatus
 import com.example.kotlinprayertime.utils.Status
@@ -96,34 +97,11 @@ class PrayersTimeFragment : Fragment() {
 
                 Status.SUCCESS -> {
                     it.data?.let {
-
                         Log.d("timingFragment", "displayData: " + it.data.timings.Fajr)
                         binding.apply {
-
                             reanimatetv()
-
-                            val result: String =
-                                LocalTime.parse(it.data.timings.Fajr, DateTimeFormatter.ofPattern("HH:mm"))
-                                    .format(DateTimeFormatter.ofPattern("hh:mm a"))
-
-                            Log.d(TAG, "displayData: ${result}")
-
-                            fajarTiming(result)
-
-                            tvFajar.text = LocalTime.parse(it.data.timings.Fajr, DateTimeFormatter.ofPattern("HH:mm"))
-                                .format(DateTimeFormatter.ofPattern("hh:mm a"))
-                            tvDuhur.text = LocalTime.parse(it.data.timings.Dhuhr, DateTimeFormatter.ofPattern("HH:mm"))
-                                .format(DateTimeFormatter.ofPattern("hh:mm a"))
-                            tvAsar.text = LocalTime.parse(it.data.timings.Asr, DateTimeFormatter.ofPattern("HH:mm"))
-                                .format(DateTimeFormatter.ofPattern("hh:mm a"))
-                            tvMaghrib.text = LocalTime.parse(it.data.timings.Maghrib, DateTimeFormatter.ofPattern("HH:mm"))
-                                .format(DateTimeFormatter.ofPattern("hh:mm a"))
-                            tvIsha.text = LocalTime.parse(it.data.timings.Isha, DateTimeFormatter.ofPattern("HH:mm"))
-                                .format(DateTimeFormatter.ofPattern("hh:mm a"))
-                            tvLocation.text = mainViewModel._city.value
-
+                            updateUI(it)
                         }
-
                     }
                 }
                 Status.LOADING -> {
@@ -139,6 +117,34 @@ class PrayersTimeFragment : Fragment() {
 
     }
 
+    private fun FragmentPrayersTimeBinding.updateUI(it: MainContainer) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val result: String =
+                LocalTime.parse(it.data.timings.Dhuhr, DateTimeFormatter.ofPattern("HH:mm"))
+                    .format(DateTimeFormatter.ofPattern("hh:mm a"))
+
+            Log.d(TAG, "displayData: ${result}")
+
+            fajarTiming(result)
+
+            tvFajar.text =
+                LocalTime.parse(it.data.timings.Fajr, DateTimeFormatter.ofPattern("HH:mm"))
+                    .format(DateTimeFormatter.ofPattern("hh:mm a"))
+            tvDuhur.text =
+                LocalTime.parse(it.data.timings.Dhuhr, DateTimeFormatter.ofPattern("HH:mm"))
+                    .format(DateTimeFormatter.ofPattern("hh:mm a"))
+            tvAsar.text = LocalTime.parse(it.data.timings.Asr, DateTimeFormatter.ofPattern("HH:mm"))
+                .format(DateTimeFormatter.ofPattern("hh:mm a"))
+            tvMaghrib.text =
+                LocalTime.parse(it.data.timings.Maghrib, DateTimeFormatter.ofPattern("HH:mm"))
+                    .format(DateTimeFormatter.ofPattern("hh:mm a"))
+            tvIsha.text =
+                LocalTime.parse(it.data.timings.Isha, DateTimeFormatter.ofPattern("HH:mm"))
+                    .format(DateTimeFormatter.ofPattern("hh:mm a"))
+            tvLocation.text = mainViewModel._city.value
+        }
+    }
+
     private fun fajarTiming(fajr: String) {
 
         val hour = fajr.substring(0, 2).toInt()
@@ -152,7 +158,7 @@ class PrayersTimeFragment : Fragment() {
         Log.d(TAG, "DefaultFajarTiming: ${hour}-${minute}")
 
         if (fajr != null) {
-            if (hour != sharedFajarHour && minute != sharedFajarMinute) {
+            if (hour == sharedFajarHour && minute == sharedFajarMinute) {
 
                 sharedPref = activity?.getSharedPreferences(SHARED_KEY, MODE_PRIVATE) ?: return
                 with(sharedPref.edit()) {
@@ -164,9 +170,8 @@ class PrayersTimeFragment : Fragment() {
                 Log.d(TAG, "fajarTiming: alarm is set")
 
                 calendar = Calendar.getInstance()
-                calendar.timeInMillis = System.currentTimeMillis()
-                calendar[Calendar.HOUR_OF_DAY] = sharedFajarHour
-                calendar[Calendar.MINUTE] = sharedFajarMinute
+                calendar[Calendar.HOUR_OF_DAY] = 16
+                calendar[Calendar.MINUTE] = 19
                 calendar[Calendar.SECOND] = 0
                 calendar[Calendar.MILLISECOND] = 0
 
@@ -179,12 +184,13 @@ class PrayersTimeFragment : Fragment() {
                     0
                 )
 
-                alarmManager.setInexactRepeating(
+                alarmManager.setExact(
                     AlarmManager.RTC_WAKEUP,
                     calendar.timeInMillis,
-                    AlarmManager.INTERVAL_DAY,
                     pendingIntent
                 )
+
+                Log.d(TAG, "ALARM: ${alarmManager.nextAlarmClock}")
 
             }
         }
