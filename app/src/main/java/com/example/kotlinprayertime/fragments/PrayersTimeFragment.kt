@@ -1,6 +1,7 @@
 package com.example.kotlinprayertime.fragments
 
 import android.Manifest.permission.*
+import android.annotation.SuppressLint
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context.*
@@ -145,6 +146,7 @@ class PrayersTimeFragment : Fragment() {
         }
     }
 
+    @SuppressLint("ScheduleExactAlarm")
     private fun fajarTiming(fajr: String) {
 
         val hour = fajr.substring(0, 2).toInt()
@@ -181,14 +183,26 @@ class PrayersTimeFragment : Fragment() {
                     this.context,
                     100,
                     intent,
-                    0
+                    PendingIntent.FLAG_IMMUTABLE
                 )
 
-                alarmManager.setExact(
-                    AlarmManager.RTC_WAKEUP,
-                    calendar.timeInMillis,
-                    pendingIntent
-                )
+                // TODO: get alarm permission
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                    if (alarmManager.canScheduleExactAlarms()){
+                        alarmManager.setExact(
+                            AlarmManager.RTC_WAKEUP,
+                            calendar.timeInMillis,
+                            pendingIntent
+                        )
+                    }
+                }
+                else{
+                    alarmManager.setExact(
+                        AlarmManager.RTC_WAKEUP,
+                        calendar.timeInMillis,
+                        pendingIntent
+                    )
+                }
 
                 Log.d(TAG, "ALARM: ${alarmManager.nextAlarmClock}")
 
