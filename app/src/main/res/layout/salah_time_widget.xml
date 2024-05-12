@@ -19,6 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:padding="4dp"
             >
             <TextView
                 android:id="@+id/fajar"
@@ -37,22 +38,17 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                 />
         </LinearLayout>
-        <com.google.android.material.divider.MaterialDivider
-            android:layout_width="2dp"
-            android:layout_height="30dp"
-            app:dividerColor="@color/black"
-            android:layout_marginStart="3dp"
-            android:layout_marginEnd="3dp"
-            />
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="4dp"
+            >
             <TextView
                 android:id="@+id/zohr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Maghrib"
+                android:text="Zhor"
                 android:textSize="15sp"
                 android:textStyle="bold"
                 />
@@ -60,22 +56,17 @@
                 android:id="@+id/tv_widget_zohr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Maghrib"
+                android:text="Zhor"
                 android:textSize="15sp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                 />
         </LinearLayout>
-        <com.google.android.material.divider.MaterialDivider
-            android:layout_width="2dp"
-            android:layout_height="30dp"
-            app:dividerColor="@color/black"
-            android:layout_marginStart="3dp"
-            android:layout_marginEnd="3dp"
-            />
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="4dp"
+            >
             <TextView
                 android:id="@+id/asar"
                 android:layout_width="wrap_content"
@@ -93,22 +84,17 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                 />
         </LinearLayout>
-        <com.google.android.material.divider.MaterialDivider
-            android:layout_width="2dp"
-            android:layout_height="30dp"
-            app:dividerColor="@color/black"
-            android:layout_marginStart="3dp"
-            android:layout_marginEnd="3dp"
-            />
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="4dp"
+            >
             <TextView
                 android:id="@+id/maghrib"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Zohr"
+                android:text="Maghrib"
                 android:textSize="15sp"
                 android:textStyle="bold"
                 />
@@ -116,22 +102,17 @@
                 android:id="@+id/tv_widget_maghrib"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Zohr"
+                android:text="Maghrib"
                 android:textSize="15sp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                 />
         </LinearLayout>
-        <com.google.android.material.divider.MaterialDivider
-            android:layout_width="2dp"
-            android:layout_height="30dp"
-            app:dividerColor="@color/black"
-            android:layout_marginStart="3dp"
-            android:layout_marginEnd="3dp"
-            />
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="4dp"
+            >
             <TextView
                 android:id="@+id/isha"
                 android:layout_width="wrap_content"

@@ -4,6 +4,8 @@ import android.Manifest.permission.*
 import android.annotation.SuppressLint
 import android.app.AlarmManager
 import android.app.PendingIntent
+import android.appwidget.AppWidgetManager
+import android.content.ComponentName
 import android.content.Context.*
 import android.content.Intent
 import android.content.SharedPreferences
@@ -23,11 +25,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.kotlinprayertime.R
 import com.example.kotlinprayertime.databinding.FragmentPrayersTimeBinding
+import com.example.kotlinprayertime.datamodel.Data
 import com.example.kotlinprayertime.datamodel.MainContainer
 import com.example.kotlinprayertime.utils.AlarmReceiver
 import com.example.kotlinprayertime.utils.NetworkStatus
 import com.example.kotlinprayertime.utils.Status
 import com.example.kotlinprayertime.viewmodel.MainViewModel
+import com.example.kotlinprayertime.widget.SalahTimeWidget
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.IOException
@@ -99,6 +103,7 @@ class PrayersTimeFragment : Fragment() {
                 Status.SUCCESS -> {
                     it.data?.let {
                         Log.d("timingFragment", "displayData: " + it.data.timings)
+                        updateWidget(it.data)
                         binding.apply {
                             reanimatetv()
                             //updateUI(it)
@@ -140,6 +145,27 @@ class PrayersTimeFragment : Fragment() {
             }
 
         }
+
+    }
+
+    private fun updateWidget(data: Data) {
+        sharedPref = activity?.getSharedPreferences(SHARED_KEY, MODE_PRIVATE) ?: return
+        with(sharedPref.edit()) {
+            putString("FajarTime", data.timings.Fajr)
+            putString("ZohrTime", data.timings.Dhuhr)
+            putString("AsarTime", data.timings.Asr)
+            putString("MaghribTime", data.timings.Maghrib)
+            putString("IshaTime", data.timings.Isha)
+            apply()
+        }
+
+        val ids = AppWidgetManager.getInstance(requireContext())
+            .getAppWidgetIds(ComponentName(requireContext().applicationContext, SalahTimeWidget::class.java))
+        val intent = Intent(requireContext(), SalahTimeWidget::class.java).apply {
+            setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE)
+            putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, ids)
+        }
+        requireContext().applicationContext.sendBroadcast(intent)
 
     }
 
