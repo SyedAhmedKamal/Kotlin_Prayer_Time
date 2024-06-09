@@ -1,5 +1,7 @@
 package com.example.kotlinprayertime
 
+import android.content.Context
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
@@ -38,5 +40,12 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         binding.bottomNavBarInside.setupWithNavController(navController)
+    }
+
+    override fun attachBaseContext(newBase: Context?) {
+        super.attachBaseContext(newBase)
+        val override  = Configuration(newBase?.resources?.configuration)
+        override.fontScale = 0.9f
+       // applyOverrideConfiguration(override)
     }
 }
