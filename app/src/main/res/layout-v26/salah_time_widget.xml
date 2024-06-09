@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical|center"
-            android:layout_weight=".3"
+            android:layout_weight=".4"
             android:baselineAligned="true">
             <TextView
                 android:id="@+id/header"
@@ -42,40 +42,44 @@
             android:gravity="center_vertical|center"
             android:weightSum="4"
             android:baselineAligned="false"
-            android:layout_weight=".3"
+            android:layout_weight=".2"
             >
 
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:padding="4dp"
                 android:layout_weight=".8"
                 android:gravity="center"
+                android:weightSum="1"
                 >
                 <TextView
                     android:id="@+id/fajar"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:text="Fajar"
                     android:textSize="15dp"
-                    android:autoSizeMaxTextSize="17dp"
-                    android:autoSizeMinTextSize="12dp"
-                    android:autoSizeTextType="none"
+                    android:autoSizeMaxTextSize="13sp"
+                    android:autoSizeMinTextSize="12sp"
+                    android:autoSizeTextType="uniform"
                     android:textStyle="bold"
                     android:lines="1"
+                    android:layout_weight=".4"
                     />
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:layout_height="5dp"
                     android:background="@drawable/divider"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
+                    android:layout_weight=".1"
                     />
                 <TextView
+                    android:layout_weight=".4"
                     android:id="@+id/tv_widget_fajar"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:text="Fajar"
                     android:textSize="15sp"
                     android:autoSizeMaxTextSize="17sp"
@@ -86,35 +90,39 @@
             </LinearLayout>
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:padding="4dp"
                 android:layout_weight=".8"
                 android:gravity="center"
+                android:weightSum="1"
                 >
                 <TextView
                     android:id="@+id/zohr"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:text="Zhor"
                     android:textSize="15dp"
-                    android:autoSizeMaxTextSize="17dp"
-                    android:autoSizeMinTextSize="12dp"
-                    android:autoSizeTextType="none"
+                    android:autoSizeMaxTextSize="13sp"
+                    android:autoSizeMinTextSize="12sp"
+                    android:autoSizeTextType="uniform"
                     android:textStyle="bold"
                     android:lines="1"
+                    android:layout_weight=".4"
                     />
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:layout_height="5dp"
                     android:background="@drawable/divider"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
+                    android:layout_weight=".1"
                     />
                 <TextView
+                    android:layout_weight=".4"
                     android:id="@+id/tv_widget_zohr"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:text="Zhor"
                     android:textSize="15sp"
                     android:autoSizeMaxTextSize="17sp"
@@ -125,7 +133,7 @@
             </LinearLayout>
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:padding="4dp"
                 android:layout_weight=".8"
@@ -247,17 +255,17 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical|center"
-            android:layout_weight=".3"
+            android:layout_weight=".4"
             android:baselineAligned="true">
             <TextView
                 android:id="@+id/footer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="FOOTER"
-                android:textSize="20dp"
-                android:autoSizeMaxTextSize="15dp"
-                android:autoSizeMinTextSize="17dp"
-                android:autoSizeTextType="none"
+                android:textSize="20sp"
+                android:autoSizeMaxTextSize="20sp"
+                android:autoSizeMinTextSize="12sp"
+                android:autoSizeTextType="uniform"
                 android:textStyle="bold"
                 android:lines="1"
                 />
